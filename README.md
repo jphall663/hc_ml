@@ -17,4 +17,4 @@ _Toward Human-Centered Machine Learning_ presentation from various venues.
 
 ### Related Papers: 
 * [On the Art and Science of Explainable Machine Learning](https://arxiv.org/abs/1810.02909)
-* Guidelines for Responsible and Human-Centered Use of Explainable Machine Learning - Coming soon
+* Guidelines for Responsible and Human-Centered Use of Explainable Machine Learning - Coming Soon
