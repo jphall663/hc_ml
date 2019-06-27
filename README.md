@@ -13,7 +13,7 @@ _Toward Human-Centered Machine Learning_ presentation from various venues.
 
 * [H2O World 2019](https://www.youtube.com/watch?v=diMSemHRNDw)
 * [Spark AI Summit 2019](https://databricks.com/session/interpretable-ai-not-just-for-regulators)
-* BDAEDCON 2019 - Coming Soon
+* [BDAEDCON 2019](https://www.youtube.com/watch?v=YUi1LRCWxds)
 
 ### Related Papers: 
 * [On the Art and Science of Explainable Machine Learning](https://arxiv.org/abs/1810.02909)
