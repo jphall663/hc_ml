@@ -32,6 +32,11 @@
 
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
+\usenavigationsymbolstemplate{}
+\setbeamertemplate{footline}{%
+    \raisebox{5pt}{\makebox{\hfill\makebox[20pt]{\color{gray}
+          \scriptsize\insertframenumber}}}\hspace*{5pt}}
+
 \author{\copyright\hspace{1pt}Patrick Hall\footnote{\tiny{This material is shared under a \href{https://creativecommons.org/licenses/by/4.0/deed.ast}{CC By 4.0 license} which allows for editing and redistribution, even for commercial purposes. However, any derivative work should attribute the author and H2O.ai.}}}
 \title{Responsible Machine Learning}
 \subtitle{\scriptsize{A Blueprint for Human Trust and Understanding in Real-World Machine Learning Systems}}
@@ -58,13 +63,13 @@
 	
 		\begin{frame}
 		
-			\frametitle{Blueprint}			
+			\frametitle{Preface}			
 			
-			This mid-level technical document provides a basic blueprint for combining the best of AutoML, regulation-compliant predictive modeling, and machine learning research in the sub-disciplines of fairness, interpretable models, post-hoc explanations, privacy and security to create a low-risk, human-centered machine learning framework.\\
+			This mid-level technical document provides a basic blueprint for combining innovations in AutoML, regulation-compliant predictive modeling, and machine learning research in the sub-disciplines of fairness, interpretable models, post-hoc explanations, privacy and security to create a low-risk machine learning framework.\\
 			
 			\vspace{10pt}			
 			
-			Based on guidance from leading researchers and practitioners.
+			This document presents potential technical solutions to the \textbf{intersectional} harms posed by opaqueness, inaccuracy, social bias, or security vulnerabilities in machine learning.
 			
 			\vspace{10pt}
 			
@@ -82,8 +87,6 @@
 					\label{fig:blueprint}
 				\end{center}
 			\end{figure}		
-		
-			\centering \
 		
 		\end{frame}
 
@@ -165,9 +168,8 @@
 				\end{center}
 			\end{figure}	
 
-			\centering
-			%\vspace{-10pt}
-			Establishing a benchmark from which to gauge improvements in accuracy, fairness, interpretability or privacy is crucial for good (``data'') science and for compliance. 
+			\vspace{-10pt}
+			\scriptsize{Establishing reproducible benchmarks from which to gauge improvements in accuracy, fairness, interpretability or privacy is crucial for good (``data'') science and for compliance. }
 		
 		\end{frame}
 
@@ -193,8 +195,8 @@
 					\column{0.5\linewidth}
 					\vspace{-5pt}
 					\begin{itemize}
-						\item OSS: \href{https://github.com/pandas-profiling/pandas-profiling}{Pandas Profiler}, \href{https://index.pocketcluster.io/featuretools-featuretools.html}{Feature Tools}
-						\item References: \citefield{kanter2015deep}{title}; \citefield{kanter2016label}{title}; \citefield{t_closeness}{title}
+						\item OSS: \href{https://cran.r-project.org/web/packages/elasticnet/index.html}{elasticnet}, \href{https://index.pocketcluster.io/featuretools-featuretools.html}{Feature Tools}
+						\item References: \citefield{zou2006sparse}{title}; \citefield{kanter2016label}{title}; \citefield{t_closeness}{title}
 					\end{itemize}
 				
 				\end{columns}		
@@ -244,8 +246,8 @@
 					\vspace{-5pt}
 					\small
 					\begin{itemize}
-						\item OSS: Monotonic gradient boosting machines in \href{https://github.com/h2oai/h2o-3/blob/master/h2o-py/demos/H2O_tutorial_gbm_monotonicity.ipynb}{H2O-3} or \href{https://xiaoxiaowang87.github.io/monotonicity_constraint/}{XGBoost}
-						\item References: \citefield{ga2m}{title} (GA2M/EBM); \citefield{wf_xnn}{title} (XNN); \citefield{pate}{title}; \citefield{sbrl}{title} (SBRL); \citefield{lfr}{title} (LFR)	
+						\item OSS: \href{https://github.com/interpretml/interpret}{\citefield{ga2m}{title} (GA2M/EBM)}; \href{https://users.cs.duke.edu/~cynthia/code.html}{Rudin Group models} e.g. \citefield{sbrl}{title} (SBRL); Monotonic gradient boosting machines in \href{https://github.com/h2oai/h2o-3/blob/master/h2o-py/demos/H2O_tutorial_gbm_monotonicity.ipynb}{H2O-3} or \href{https://xiaoxiaowang87.github.io/monotonicity_constraint/}{XGBoost}; \href{https://docs.pymc.io/}{pymc3}
+						\item References: \citefield{pate}{title}; \citefield{zhang2018mitigating}{title}; \citefield{pearl2011bayesian}{title}; \citefield{wf_xnn}{title} (XNN)
 					\end{itemize}
 					\normalsize
 				
@@ -258,6 +260,31 @@
 %-------------------------------------------------------------------------------
 
 %-------------------------------------------------------------------------------
+		\subsection{Calibration}
+%-------------------------------------------------------------------------------			
+
+			\begin{frame}
+		
+				\frametitle{Prediction Calibration}		
+			
+				\begin{columns}
+	
+					\column{0.5\linewidth}
+					\centering
+					\includegraphics[height=120pt]{img/calibrate.png}
+				
+					\column{0.5\linewidth}
+					\begin{itemize}
+						\item Just because a number is in $[0,1]$ does not make it a probability. 
+						\item OSS: \href{https://scikit-learn.org/stable/modules/calibration.html}{scikit-learn} 
+						\item References: \citefield{niculescu2005predicting}{title}
+					\end{itemize}
+				
+				\end{columns}			
+
+			\end{frame}
+
+%-------------------------------------------------------------------------------
 		\subsection{Model Assessment}
 %-------------------------------------------------------------------------------			
 
@@ -265,18 +292,14 @@
 		
 				\frametitle{Traditional Model Assessment and Diagnostics}		
 			
-				\begin{columns}			
-			
-					\column{0.5\linewidth}
-					\centering
-					\includegraphics[height=120pt]{img/ma.png}
-				
-					\column{0.5\linewidth}
-					\vspace{-5pt}
-					
-					Residual analysis, Q-Q plots, AUC and lift curves etc. confirm model is accurate and meets assumption criteria.
-					
-				\end{columns}
+				\begin{figure}[htb]
+					\begin{center}
+						\includegraphics[height=135pt]{img/ma.png}
+					\end{center}
+				\end{figure}	
+
+			\vspace{-10pt}
+			\scriptsize{Residual analysis, Q-Q plots, AUC and lift curves etc. confirm model is accurate and meets assumption criteria.}
 		
 			\end{frame}
 
@@ -300,8 +323,8 @@
 					\small{
 					\begin{itemize}
 						\item Explanations enable \textit{understanding} and \textit{appeal} ... \textit{not trust}.
-						\item OSS: \href{https://github.com/marcotcr/lime}{lime}, \href{https://github.com/slundberg/shap}{shap} 
-						\item References: \citefield{lime}{title}; \citefield{shapley}{title}; \citefield{please_stop}{title} (criticism)
+						\item OSS: \href{https://github.com/SeldonIO/alibi}{alibi}, \href{https://github.com/slundberg/shap}{shap} 
+						\item References: \citefield{wachter2017counterfactual}{title}; \citefield{shapley}{title}; \citefield{dt_surrogate2}{title}; \citefield{please_stop}{title} (criticism)
 					\end{itemize}}
 				
 				\end{columns}
@@ -401,7 +424,7 @@
 			
 			\begin{frame}	
 			
-				\frametitle{Machine Learning Attacks}		
+				\frametitle{Machine Learning Attacks\footnote{\tiny{See \url{https://github.com/jphall663/secure_ML_ideas} for full size image and more information.}}}		
 			
 				\begin{figure}[htb]
 					\begin{center}
@@ -415,7 +438,7 @@
 		\subsection{Post-hoc Disparate Impact Remediation}
 %-------------------------------------------------------------------------------					
 		
-			\begin{frame}		
+		\begin{frame}		
 		
 			\frametitle{Post-hoc Disparate Impact Assessment and Remediation}		
 			
@@ -428,9 +451,9 @@
 				\column{0.5\linewidth}
 				\vspace{-5pt}
 				\begin{itemize}
-					\item Disparate impact analysis can be performed manually using nearly any model or library.
+					\item Social bias testing should include group fairness tests and should attempt to consider individual fairness. 
 					\item OSS: \href{https://github.com/dssg/aequitas}{aequitas}, IBM \href{https://github.com/IBM/AIF360}{AIF360}, \href{https://github.com/LASER-UMASS/Themis}{themis}
-					\item References: \citefield{hardt2016equality}{title}; \citefield{feldman2015certifying}{title} 
+					\item References: \citefield{dwork2012fairness}{title}; \citefield{kamiran2012decision}{title}; \citefield{hardt2016equality}{title}; \citefield{feldman2015certifying}{title} 
 				\end{itemize}
 				
 			\end{columns}
@@ -445,6 +468,15 @@
 		
 			\frametitle{Quantify and Plan for Risk}	
 			
+			\begin{figure}[htb]
+				\begin{center}
+					\includegraphics[height=135pt]{img/risk.png}
+					\end{center}
+				\end{figure}	
+
+			\vspace{-10pt}
+			\scriptsize{Your model will be wrong. Stake-holders need to understand and be prepared for the human and financial costs of these wrong decisions.}	
+				
 		\end{frame}
 
 %-------------------------------------------------------------------------------
@@ -511,7 +543,6 @@
 				\end{center}
 			\end{figure}	
 
-			\centering
 			%\vspace{-10pt}
 			\footnotesize{\textit{Very} important, may require custom implementation for each deployment environment? Related problems exist \href{https://www.nytimes.com/2017/06/13/opinion/how-computers-are-harming-criminal-justice.html}{\textit{today}}}.
 
@@ -530,7 +561,6 @@
 				\end{center}
 			\end{figure}	
 
-			\centering
 			%\vspace{-10pt}
 			\footnotesize{When a model becomes absolutely or relatively inaccurate, unfair, or insecure it must be taken out of service, but saved in an executable and reproducible manner.}
 
@@ -538,12 +568,27 @@
 
 
 %-------------------------------------------------------------------------------
-	\section{Cause}
+	\section{Causality?}
 %-------------------------------------------------------------------------------
 
 		\begin{frame}
 		
-			\frametitle{Root Cause Analysis}	
+			\frametitle{Causality?}	
+			
+			\begin{columns}
+	
+				\column{0.5\linewidth}
+				\centering
+				\includegraphics[height=120pt]{img/cause.png}
+				
+				\column{0.5\linewidth}
+				\begin{itemize}
+					\item Root cause analysis: can root causes be identified, verified? Formalized into model architecture? 
+					\item OSS: \href{https://github.com/microsoft/dowhy}{dowhy}, \href{https://docs.pymc.io/}{pymc3}
+					\item References: \citefield{pearl2018book}{title}; \citefield{salvatier2016probabilistic}{title}
+				\end{itemize}
+				
+			\end{columns}
 			
 		\end{frame}
 
@@ -563,7 +608,6 @@
 			\end{figure}	
 
 			\centering
-			
 			Improvements, KPIs should not be restricted to accuracy alone.
 		
 		\end{frame}
@@ -592,14 +636,13 @@
 	
 		\frametitle{References}	
 		
-			\textbf{In-Depth Open Source Interpretability Technique Examples:}\\
-			\small{\url{https://github.com/jphall663/interpretable_machine_learning_with_python}}
+			\textbf{These slides:}\\
+			\small{\url{https://github.com/jphall663/hc_ml}}
 			
 			\vspace{10pt}
 			
 			\textbf{"Awesome" Machine Learning Interpretability Resource List:}\\
 			\small{\url{https://github.com/jphall663/awesome-machine-learning-interpretability}}
-			
 		
 		\framebreak		
 		
